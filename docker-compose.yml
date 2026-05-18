@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  victoriametrics:
+    image: victoriametrics/victoria-metrics:latest
+    container_name: victoriametrics
+    ports:
+      - "8428:8428"
+    command:
+      - "--promscrape.config=/prometheus.yml"
+      - "--retentionPeriod=1d"
+    volumes:
+      - ./prometheus.yml:/prometheus.yml:ro
+      - vmdata:/victoria-metrics-data
+    restart: always
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    restart: always
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - victoriametrics
+    restart: always
+
+volumes:
+  vmdata:
