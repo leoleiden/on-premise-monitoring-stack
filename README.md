@@ -52,5 +52,5 @@ Then, add the target IP to `prometheus.yml` and restart the VictoriaMetrics cont
 
 ## Screenshots
 ![Oracle Node Metrics](images/node_oracle.png)
-![Local Node Metrics](images/node_local.png
+![Local Node Metrics](images/node_local.png)
 ![VictoriaMetrics Targets](images/localhost_targets.png)
