@@ -24,16 +24,14 @@ The monitoring pipeline consists of three main components:
 ## Quick Start (Deployment)
 
 ### 1. Clone the repository
-\`\`\`bash
-git clone https://github.com/your-username/on-premise-monitoring-stack.git
-cd on-premise-monitoring-stack
-\`\`\`
+
+    git clone https://github.com/leoleiden/on-premise-monitoring-stack.git
+    cd on-premise-monitoring-stack
 
 ### 2. Start the stack
 Deploy the monitoring environment using Docker Compose:
-\`\`\`bash
-docker compose up -d
-\`\`\`
+
+    docker compose up -d
 
 ### 3. Access Grafana
 - Navigate to `http://localhost:3000`
@@ -42,18 +40,17 @@ docker compose up -d
 
 ## Adding Remote On-Premise Servers (e.g., Oracle Linux 9)
 To monitor additional on-premise servers, install Node Exporter on the target machine as a `systemd` service and open the required firewall ports:
-\`\`\`bash
-# On RHEL/Oracle Linux target:
-sudo firewall-cmd --add-port=9100/tcp --permanent
-sudo firewall-cmd --reload
-\`\`\`
+
+    # On RHEL/Oracle Linux target:
+    sudo firewall-cmd --add-port=9100/tcp --permanent
+    sudo firewall-cmd --reload
+
 Then, add the target IP to `prometheus.yml` and restart the VictoriaMetrics container:
-\`\`\`yaml
-static_configs:
-  - targets: ['node-exporter:9100', '<REMOTE_IP>:9100']
-\`\`\`
+
+    static_configs:
+      - targets: ['node-exporter:9100', '192.168.8.2:9100']
 
 ## Screenshots
-![Oracle Node](images/node_oracle.jpg)
-![Local Node](images/node_local.jpg)
-![Victoria Targets](images/localhost_targets.png)
+![Oracle Node Metrics](images/node_oracle.png)
+![Local Node Metrics](images/node_local.png
+![VictoriaMetrics Targets](images/localhost_targets.png)
